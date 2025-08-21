@@ -1,0 +1,56 @@
+/* Homepage (F8-style) */
+/* Hero banner */
+.hero {
+	background: radial-gradient(1200px 300px at 10% 0%, rgba(255,255,255,.18), transparent),
+		linear-gradient(90deg, var(--brand-primary), #8b5cf6);
+	border-radius: 16px;
+	box-shadow: var(--shadow-lg);
+	color: #fff;
+	position: relative;
+	overflow: hidden;
+}
+.hero .hero-art {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 40%;
+	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600"><defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="%23ffffff" stop-opacity="0.35"/><stop offset="1" stop-color="%23ffffff" stop-opacity="0.05"/></linearGradient></defs><circle cx="300" cy="300" r="240" fill="url(%23g)"/></svg>') center/contain no-repeat;
+	opacity: .45;
+}
+
+/* Course cards */
+.course-card {
+	border: none;
+	border-radius: 16px;
+	box-shadow: var(--shadow-md);
+	overflow: hidden;
+	transition: transform .2s ease, box-shadow .2s ease;
+	background: #fff;
+}
+.course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+.course-thumb {
+	height: 120px;
+	background: linear-gradient(135deg, #111827, #1f2937);
+	color: #fff;
+	display: flex; align-items: center; justify-content: center;
+	font-weight: 700; letter-spacing: .02em;
+}
+.course-meta { color: #6b7280; font-size: .85rem; }
+
+/* Section header */
+.section-title { font-size: 1.125rem; font-weight: 700; color: var(--text-900); }
+.section-subtitle { color: var(--text-500); font-size: .9rem; }
+
+/* Pills */
+.pill { display:inline-block; padding:.25rem .5rem; background:rgba(255,255,255,.2); color:#fff; border-radius:9999px; font-size:.75rem; }
+
+/* Video cards */
+.video-thumb { position: relative; height: 160px; background:#111827; border-radius: 12px; overflow:hidden; }
+.video-thumb .play { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); background:rgba(255,255,255,.2); width:52px; height:52px; border-radius:9999px; display:flex; align-items:center; justify-content:center; color:#fff; }
+
+/* Footer */
+.footer { background:#0b1220; color:#9ca3af; border-radius: 16px; }
+.footer a { color:#cbd5e1; text-decoration:none; }
+.footer a:hover { color:#fff; text-decoration:underline; }
