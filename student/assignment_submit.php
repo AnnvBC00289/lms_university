@@ -139,13 +139,9 @@ $days_until_due = (strtotime($assignment['due_date']) - time()) / (60 * 60 * 24)
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <link href="../assets/css/theme.css" rel="stylesheet">
+    <link href="../assets/css/backgrounds.css" rel="stylesheet">
     
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-        }
-
         .assignment-header {
             background: linear-gradient(135deg, #6366f1, #4f46e5);
             color: white;
@@ -295,7 +291,7 @@ $days_until_due = (strtotime($assignment['due_date']) - time()) / (60 * 60 * 24)
         }
     </style>
 </head>
-<body>
+<body class="dashboard-page">
     <?php include '../includes/student_navbar.php'; ?>
     
     <div class="container-fluid">

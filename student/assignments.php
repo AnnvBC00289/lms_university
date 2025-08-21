@@ -91,12 +91,10 @@ $average_grade = $graded_scores ? array_sum($graded_scores) / count($graded_scor
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <link href="../assets/css/theme.css" rel="stylesheet">
+    <link href="../assets/css/backgrounds.css" rel="stylesheet">
     
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-        }
 
         .assignment-card {
             background: white;
@@ -231,7 +229,7 @@ $average_grade = $graded_scores ? array_sum($graded_scores) / count($graded_scor
         }
     </style>
 </head>
-<body>
+<body class="dashboard-page">
     <?php include '../includes/student_navbar.php'; ?>
     
     <div class="container-fluid">

@@ -128,6 +128,7 @@ function getFileIcon($file_type) {
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <link href="../assets/css/theme.css" rel="stylesheet">
+    <link href="../assets/css/backgrounds.css" rel="stylesheet">
     
     <style>
         :root {
@@ -151,9 +152,6 @@ function getFileIcon($file_type) {
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-        }
 
         .page-header {
             background: white;
@@ -255,7 +253,7 @@ function getFileIcon($file_type) {
         }
     </style>
 </head>
-<body>
+<body class="dashboard-page">
     <?php include '../includes/instructor_navbar.php'; ?>
     
     <div class="container-fluid">

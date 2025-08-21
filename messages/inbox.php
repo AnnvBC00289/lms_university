@@ -42,7 +42,7 @@ $unread_count = $stmt->fetch(PDO::FETCH_ASSOC)['unread_count'];
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
 </head>
-<body>
+<body class="dashboard-page">
     <?php 
     if (hasRole('student')) {
         include '../includes/student_navbar.php';
@@ -61,8 +61,8 @@ $unread_count = $stmt->fetch(PDO::FETCH_ASSOC)['unread_count'];
             }
             ?>
             
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-4">
                     <h1 class="h2">
                         <i class="fas fa-envelope"></i> Messages
                         <?php if ($unread_count > 0): ?>

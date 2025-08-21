@@ -123,6 +123,7 @@ foreach ($simulated_logs as $log) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <link href="../assets/css/theme.css" rel="stylesheet">
+    <link href="../assets/css/backgrounds.css" rel="stylesheet">
     
     <style>
         :root {
@@ -138,9 +139,6 @@ foreach ($simulated_logs as $log) {
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-        }
 
         .sidebar {
             background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%) !important;
@@ -321,7 +319,7 @@ foreach ($simulated_logs as $log) {
         }
     </style>
 </head>
-<body>
+<body class="dashboard-page">
     <?php include '../includes/admin_navbar.php'; ?>
     
     <div class="container-fluid">

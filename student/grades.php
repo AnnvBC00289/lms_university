@@ -131,12 +131,10 @@ $overall_gpa = $final_grades ? array_sum($final_grades) / count($final_grades) :
     <link href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></link>
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <link href="../assets/css/theme.css" rel="stylesheet">
+    <link href="../assets/css/backgrounds.css" rel="stylesheet">
     
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-        }
 
         .grade-card {
             background: white;
@@ -358,7 +356,7 @@ $overall_gpa = $final_grades ? array_sum($final_grades) / count($final_grades) :
         }
     </style>
 </head>
-<body>
+<body class="dashboard-page">
     <?php include '../includes/student_navbar.php'; ?>
     
     <div class="container-fluid">

@@ -11,6 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="assets/css/backgrounds.css" rel="stylesheet">
     
     <style>
         :root {
@@ -39,7 +40,6 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.7;
             color: var(--gray-700);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         .main-container {
@@ -370,7 +370,7 @@
         }
     </style>
 </head>
-<body>
+<body class="index-page">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-modern">
         <div class="container">

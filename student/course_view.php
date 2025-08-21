@@ -104,12 +104,10 @@ $overall_progress = ($assignment_progress + $quiz_progress) / 2;
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <link href="../assets/css/theme.css" rel="stylesheet">
+    <link href="../assets/css/backgrounds.css" rel="stylesheet">
     
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-        }
 
         .course-header {
             background: linear-gradient(135deg, #6366f1, #4f46e5);
@@ -240,7 +238,7 @@ $overall_progress = ($assignment_progress + $quiz_progress) / 2;
         }
     </style>
 </head>
-<body>
+<body class="dashboard-page">
     <?php include '../includes/student_navbar.php'; ?>
     
     <div class="container-fluid">

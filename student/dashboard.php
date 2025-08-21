@@ -58,6 +58,7 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <link href="../assets/css/theme.css" rel="stylesheet">
+    <link href="../assets/css/backgrounds.css" rel="stylesheet">
     
     <style>
         :root {
@@ -81,7 +82,6 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #f8fafc;
         }
 
         .sidebar {
@@ -355,7 +355,7 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     </style>
 </head>
-<body>
+<body class="dashboard-page">
     <?php include '../includes/student_navbar.php'; ?>
     
     <div class="container-fluid">
@@ -369,7 +369,7 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div>
                             <h1 class="section-title">
                                 <i class="fas fa-tachometer-alt text-primary me-3"></i>Student Dashboard
-                            </h1>
+                    </h1>
                             <p class="section-subtitle">Welcome to your learning hub</p>
                         </div>
                         <div class="btn-group">
@@ -426,7 +426,7 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <small class="text-success">
                                         <i class="fas fa-arrow-up me-1"></i>Active enrollment
                                     </small>
-                                </div>
+                                    </div>
                                 <div class="stats-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
                                     <i class="fas fa-book"></i>
                                 </div>
@@ -440,12 +440,12 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div>
                                     <div class="stats-label mb-2">Completed Assignments</div>
                                     <div class="stats-number">
-                                        <?php echo count(array_filter($recent_assignments, function($a) { return $a['status'] == 'submitted'; })); ?>
+                                            <?php echo count(array_filter($recent_assignments, function($a) { return $a['status'] == 'submitted'; })); ?>
                                     </div>
                                     <small class="text-success">
                                         <i class="fas fa-check me-1"></i>Well done!
                                     </small>
-                                </div>
+                                    </div>
                                 <div class="stats-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
                                     <i class="fas fa-clipboard-check"></i>
                                 </div>
@@ -462,7 +462,7 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <small class="text-info">
                                         <i class="fas fa-chart-line me-1"></i>Recent activity
                                     </small>
-                                </div>
+                                    </div>
                                 <div class="stats-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
                                     <i class="fas fa-question-circle"></i>
                                 </div>
@@ -476,12 +476,12 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div>
                                     <div class="stats-label mb-2">Pending Tasks</div>
                                     <div class="stats-number">
-                                        <?php echo count(array_filter($recent_assignments, function($a) { return $a['status'] == 'pending'; })); ?>
+                                            <?php echo count(array_filter($recent_assignments, function($a) { return $a['status'] == 'pending'; })); ?>
                                     </div>
                                     <small class="text-warning">
                                         <i class="fas fa-clock me-1"></i>Due soon
                                     </small>
-                                </div>
+                                    </div>
                                 <div class="stats-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
                                     <i class="fas fa-exclamation-triangle"></i>
                                 </div>
@@ -527,16 +527,16 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                     <h6 class="fw-bold mb-2"><?php echo htmlspecialchars($course['title']); ?></h6>
                                                     <p class="text-muted small mb-3">
                                                         <span class="badge bg-light text-dark me-2"><?php echo htmlspecialchars($course['course_code']); ?></span>
-                                                        <?php echo htmlspecialchars($course['first_name'] . ' ' . $course['last_name']); ?>
-                                                    </p>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <small class="text-muted">
+                                                            <?php echo htmlspecialchars($course['first_name'] . ' ' . $course['last_name']); ?>
+                                                        </p>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <small class="text-muted">
                                                             <i class="fas fa-calendar me-1"></i>
                                                             <?php echo formatDate($course['enrollment_date']); ?>
-                                                        </small>
+                                                            </small>
                                                         <a href="course_view.php?id=<?php echo $course['id']; ?>" class="btn btn-sm btn-primary btn-modern">
                                                             <i class="fas fa-arrow-right me-1"></i>View
-                                                        </a>
+                                                            </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -564,7 +564,7 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <p class="text-muted small">No recent assignments</p>
                                         </div>
                                     <?php else: ?>
-                                        <?php foreach ($recent_assignments as $assignment): ?>
+                                    <?php foreach ($recent_assignments as $assignment): ?>
                                             <div class="timeline-item-modern">
                                                 <h6 class="fw-semibold mb-1"><?php echo htmlspecialchars($assignment['title']); ?></h6>
                                                 <p class="text-muted small mb-2">
@@ -572,7 +572,7 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                     <?php echo htmlspecialchars($assignment['course_title']); ?>
                                                 </p>
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <small class="text-muted">
+                                                <small class="text-muted">
                                                         <i class="fas fa-calendar me-1"></i>
                                                         <?php echo formatDate($assignment['due_date']); ?>
                                                     </small>
@@ -586,8 +586,8 @@ $recent_quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                         </span>
                                                     <?php endif; ?>
                                                 </div>
-                                            </div>
-                                        <?php endforeach; ?>
+                                        </div>
+                                    <?php endforeach; ?>
                                     <?php endif; ?>
                                 </div>
                             </div>

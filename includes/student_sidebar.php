@@ -79,6 +79,7 @@ function isActive($page) {
             <li class="nav-item">
                 <a class="nav-link <?php echo isActive('progress.php'); ?>" href="../student/progress.php">
                     <i class="fas fa-chart-bar me-2"></i>Progress
+                    <span class="badge bg-info ms-auto">New</span>
                 </a>
             </li>
         </ul>

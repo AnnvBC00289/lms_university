@@ -59,6 +59,12 @@ function isActive($page) {
                     <span class="badge bg-secondary ms-auto">6</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link <?php echo isActive('quiz_create.php'); ?>" href="../instructor/quiz_create.php">
+                    <i class="fas fa-plus-circle me-2"></i>Create Quiz
+                    <span class="badge bg-info ms-auto">New</span>
+                </a>
+            </li>
         </ul>
 
         <!-- Students -->

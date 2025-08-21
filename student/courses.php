@@ -78,11 +78,11 @@ if ($_POST['action'] ?? '' === 'enroll' && isset($_POST['course_id'])) {
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <link href="../assets/css/theme.css" rel="stylesheet">
+    <link href="../assets/css/backgrounds.css" rel="stylesheet">
     
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: #f8fafc;
         }
 
         .course-card {
@@ -216,7 +216,7 @@ if ($_POST['action'] ?? '' === 'enroll' && isset($_POST['course_id'])) {
         }
     </style>
 </head>
-<body>
+<body class="dashboard-page">
     <?php include '../includes/student_navbar.php'; ?>
     
     <div class="container-fluid">
@@ -462,3 +462,1395 @@ if ($_POST['action'] ?? '' === 'enroll' && isset($_POST['course_id'])) {
     </script>
 </body>
 </html>
+
+                            <p class="text-muted">Manage your enrolled courses and discover new ones</p>
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button type="button" class="btn btn-outline-primary">
+
+                                <i class="fas fa-filter me-2"></i>Filter
+
+                            </button>
+
+                            <button type="button" class="btn btn-outline-secondary">
+
+                                <i class="fas fa-download me-2"></i>Export
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <?php if (isset($_GET['enrolled'])): ?>
+
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+                    <i class="fas fa-check-circle me-2"></i>
+
+                    Successfully enrolled in the course!
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+                </div>
+
+                <?php endif; ?>
+
+
+
+                <?php if (isset($error_message)): ?>
+
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+                    <i class="fas fa-exclamation-circle me-2"></i>
+
+                    <?php echo $error_message; ?>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+                </div>
+
+                <?php endif; ?>
+
+
+
+                <!-- Course Tabs -->
+
+                <div class="card border-0 shadow-sm" data-aos="fade-up">
+
+                    <div class="card-header bg-transparent border-0 p-0">
+
+                        <ul class="nav nav-tabs" id="courseTab" role="tablist">
+
+                            <li class="nav-item" role="presentation">
+
+                                <button class="nav-link active" id="enrolled-tab" data-bs-toggle="tab" data-bs-target="#enrolled" type="button" role="tab">
+
+                                    <i class="fas fa-graduation-cap me-2"></i>
+
+                                    Enrolled Courses (<?php echo count($enrolled_courses); ?>)
+
+                                </button>
+
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+
+                                <button class="nav-link" id="available-tab" data-bs-toggle="tab" data-bs-target="#available" type="button" role="tab">
+
+                                    <i class="fas fa-plus-circle me-2"></i>
+
+                                    Available Courses (<?php echo count($available_courses); ?>)
+
+                                </button>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    
+
+                    <div class="tab-content" id="courseTabContent">
+
+                        <!-- Enrolled Courses Tab -->
+
+                        <div class="tab-pane fade show active" id="enrolled" role="tabpanel">
+
+                            <?php if (empty($enrolled_courses)): ?>
+
+                                <div class="text-center py-5">
+
+                                    <div class="mb-4">
+
+                                        <i class="fas fa-book text-muted" style="font-size: 4rem; opacity: 0.3;"></i>
+
+                                    </div>
+
+                                    <h5 class="text-muted mb-3">No Courses Enrolled</h5>
+
+                                    <p class="text-muted mb-4">You haven't enrolled in any courses yet. Check out available courses below!</p>
+
+                                    <button class="btn btn-primary" onclick="document.getElementById('available-tab').click();">
+
+                                        <i class="fas fa-search me-2"></i>Browse Available Courses
+
+                                    </button>
+
+                                </div>
+
+                            <?php else: ?>
+
+                                <div class="row">
+
+                                    <?php foreach ($enrolled_courses as $index => $course): ?>
+
+                                        <div class="col-lg-6 col-xl-4 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
+
+                                            <div class="course-card">
+
+                                                <div class="course-header">
+
+                                                    <div class="d-flex justify-content-between align-items-start position-relative" style="z-index: 2;">
+
+                                                        <div>
+
+                                                            <h6 class="fw-bold mb-2"><?php echo htmlspecialchars($course['title']); ?></h6>
+
+                                                            <p class="mb-1 opacity-90">
+
+                                                                <small><?php echo htmlspecialchars($course['course_code']); ?></small>
+
+                                                            </p>
+
+                                                            <p class="mb-0 opacity-75">
+
+                                                                <small><i class="fas fa-user me-1"></i>
+
+                                                                <?php echo htmlspecialchars($course['first_name'] . ' ' . $course['last_name']); ?>
+
+                                                                </small>
+
+                                                            </p>
+
+                                                        </div>
+
+                                                        <span class="badge bg-success">Enrolled</span>
+
+                                                    </div>
+
+                                                </div>
+
+                                                
+
+                                                <div class="course-body">
+
+                                                    <p class="text-muted small mb-3">
+
+                                                        <?php echo htmlspecialchars(substr($course['description'] ?? 'No description available', 0, 120)) . '...'; ?>
+
+                                                    </p>
+
+                                                    
+
+                                                    <div class="stats-row">
+
+                                                        <div class="stat-item">
+
+                                                            <div class="stat-number"><?php echo $course['materials_count']; ?></div>
+
+                                                            <div class="stat-label">Materials</div>
+
+                                                        </div>
+
+                                                        <div class="stat-item">
+
+                                                            <div class="stat-number"><?php echo $course['assignments_count']; ?></div>
+
+                                                            <div class="stat-label">Assignments</div>
+
+                                                        </div>
+
+                                                        <div class="stat-item">
+
+                                                            <div class="stat-number"><?php echo $course['quizzes_count']; ?></div>
+
+                                                            <div class="stat-label">Quizzes</div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    
+
+                                                    <div class="d-flex justify-content-between align-items-center mt-3">
+
+                                                        <small class="text-muted">
+
+                                                            <i class="fas fa-calendar me-1"></i>
+
+                                                            Enrolled <?php echo formatDate($course['enrollment_date']); ?>
+
+                                                        </small>
+
+                                                        <a href="course_view.php?id=<?php echo $course['id']; ?>" class="btn btn-primary btn-sm">
+
+                                                            <i class="fas fa-arrow-right me-1"></i>View
+
+                                                        </a>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    <?php endforeach; ?>
+
+                                </div>
+
+                            <?php endif; ?>
+
+                        </div>
+
+
+
+                        <!-- Available Courses Tab -->
+
+                        <div class="tab-pane fade" id="available" role="tabpanel">
+
+                            <?php if (empty($available_courses)): ?>
+
+                                <div class="text-center py-5">
+
+                                    <div class="mb-4">
+
+                                        <i class="fas fa-search text-muted" style="font-size: 4rem; opacity: 0.3;"></i>
+
+                                    </div>
+
+                                    <h5 class="text-muted mb-3">No Available Courses</h5>
+
+                                    <p class="text-muted">All available courses are already enrolled or there are no active courses at the moment.</p>
+
+                                </div>
+
+                            <?php else: ?>
+
+                                <div class="row">
+
+                                    <?php foreach ($available_courses as $index => $course): ?>
+
+                                        <div class="col-lg-6 col-xl-4 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
+
+                                            <div class="course-card">
+
+                                                <div class="course-header">
+
+                                                    <div class="d-flex justify-content-between align-items-start position-relative" style="z-index: 2;">
+
+                                                        <div>
+
+                                                            <h6 class="fw-bold mb-2"><?php echo htmlspecialchars($course['title']); ?></h6>
+
+                                                            <p class="mb-1 opacity-90">
+
+                                                                <small><?php echo htmlspecialchars($course['course_code']); ?></small>
+
+                                                            </p>
+
+                                                            <p class="mb-0 opacity-75">
+
+                                                                <small><i class="fas fa-user me-1"></i>
+
+                                                                <?php echo htmlspecialchars($course['first_name'] . ' ' . $course['last_name']); ?>
+
+                                                                </small>
+
+                                                            </p>
+
+                                                        </div>
+
+                                                        <span class="badge bg-info">Available</span>
+
+                                                    </div>
+
+                                                </div>
+
+                                                
+
+                                                <div class="course-body">
+
+                                                    <p class="text-muted small mb-3">
+
+                                                        <?php echo htmlspecialchars(substr($course['description'] ?? 'No description available', 0, 120)) . '...'; ?>
+
+                                                    </p>
+
+                                                    
+
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                                        <div>
+
+                                                            <small class="text-muted">
+
+                                                                <i class="fas fa-users me-1"></i>
+
+                                                                <?php echo $course['enrolled_count']; ?>/<?php echo $course['max_students']; ?> enrolled
+
+                                                            </small>
+
+                                                        </div>
+
+                                                        <div>
+
+                                                            <small class="text-muted">
+
+                                                                <i class="fas fa-star me-1"></i>
+
+                                                                <?php echo $course['credits']; ?> credits
+
+                                                            </small>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    
+
+                                                    <form method="POST" class="d-inline">
+
+                                                        <input type="hidden" name="action" value="enroll">
+
+                                                        <input type="hidden" name="course_id" value="<?php echo $course['id']; ?>">
+
+                                                        <?php if ($course['enrolled_count'] >= $course['max_students']): ?>
+
+                                                            <button type="button" class="btn btn-secondary w-100" disabled>
+
+                                                                <i class="fas fa-users me-2"></i>Course Full
+
+                                                            </button>
+
+                                                        <?php else: ?>
+
+                                                            <button type="submit" class="btn btn-enroll w-100" 
+
+                                                                    onclick="return confirm('Are you sure you want to enroll in this course?')">
+
+                                                                <i class="fas fa-plus me-2"></i>Enroll Now
+
+                                                            </button>
+
+                                                        <?php endif; ?>
+
+                                                    </form>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    <?php endforeach; ?>
+
+                                </div>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script src="../assets/js/theme.js"></script>
+
+    <script>
+
+        // Initialize AOS
+
+        AOS.init({
+
+            duration: 800,
+
+            once: true,
+
+            offset: 50
+
+        });
+
+
+
+        // Tab switching animation
+
+        document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+
+            tab.addEventListener('shown.bs.tab', function() {
+
+                AOS.refresh();
+
+            });
+
+        });
+
+
+
+        // Course card hover effects
+
+        document.querySelectorAll('.course-card').forEach(card => {
+
+            card.addEventListener('mouseenter', function() {
+
+                this.style.transform = 'translateY(-5px)';
+
+            });
+
+            
+
+            card.addEventListener('mouseleave', function() {
+
+                this.style.transform = 'translateY(0)';
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
+
+
+
+                            <p class="text-muted">Manage your enrolled courses and discover new ones</p>
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button type="button" class="btn btn-outline-primary">
+
+                                <i class="fas fa-filter me-2"></i>Filter
+
+                            </button>
+
+                            <button type="button" class="btn btn-outline-secondary">
+
+                                <i class="fas fa-download me-2"></i>Export
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <?php if (isset($_GET['enrolled'])): ?>
+
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+                    <i class="fas fa-check-circle me-2"></i>
+
+                    Successfully enrolled in the course!
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+                </div>
+
+                <?php endif; ?>
+
+
+
+                <?php if (isset($error_message)): ?>
+
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+                    <i class="fas fa-exclamation-circle me-2"></i>
+
+                    <?php echo $error_message; ?>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+                </div>
+
+                <?php endif; ?>
+
+
+
+                <!-- Course Tabs -->
+
+                <div class="card border-0 shadow-sm" data-aos="fade-up">
+
+                    <div class="card-header bg-transparent border-0 p-0">
+
+                        <ul class="nav nav-tabs" id="courseTab" role="tablist">
+
+                            <li class="nav-item" role="presentation">
+
+                                <button class="nav-link active" id="enrolled-tab" data-bs-toggle="tab" data-bs-target="#enrolled" type="button" role="tab">
+
+                                    <i class="fas fa-graduation-cap me-2"></i>
+
+                                    Enrolled Courses (<?php echo count($enrolled_courses); ?>)
+
+                                </button>
+
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+
+                                <button class="nav-link" id="available-tab" data-bs-toggle="tab" data-bs-target="#available" type="button" role="tab">
+
+                                    <i class="fas fa-plus-circle me-2"></i>
+
+                                    Available Courses (<?php echo count($available_courses); ?>)
+
+                                </button>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    
+
+                    <div class="tab-content" id="courseTabContent">
+
+                        <!-- Enrolled Courses Tab -->
+
+                        <div class="tab-pane fade show active" id="enrolled" role="tabpanel">
+
+                            <?php if (empty($enrolled_courses)): ?>
+
+                                <div class="text-center py-5">
+
+                                    <div class="mb-4">
+
+                                        <i class="fas fa-book text-muted" style="font-size: 4rem; opacity: 0.3;"></i>
+
+                                    </div>
+
+                                    <h5 class="text-muted mb-3">No Courses Enrolled</h5>
+
+                                    <p class="text-muted mb-4">You haven't enrolled in any courses yet. Check out available courses below!</p>
+
+                                    <button class="btn btn-primary" onclick="document.getElementById('available-tab').click();">
+
+                                        <i class="fas fa-search me-2"></i>Browse Available Courses
+
+                                    </button>
+
+                                </div>
+
+                            <?php else: ?>
+
+                                <div class="row">
+
+                                    <?php foreach ($enrolled_courses as $index => $course): ?>
+
+                                        <div class="col-lg-6 col-xl-4 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
+
+                                            <div class="course-card">
+
+                                                <div class="course-header">
+
+                                                    <div class="d-flex justify-content-between align-items-start position-relative" style="z-index: 2;">
+
+                                                        <div>
+
+                                                            <h6 class="fw-bold mb-2"><?php echo htmlspecialchars($course['title']); ?></h6>
+
+                                                            <p class="mb-1 opacity-90">
+
+                                                                <small><?php echo htmlspecialchars($course['course_code']); ?></small>
+
+                                                            </p>
+
+                                                            <p class="mb-0 opacity-75">
+
+                                                                <small><i class="fas fa-user me-1"></i>
+
+                                                                <?php echo htmlspecialchars($course['first_name'] . ' ' . $course['last_name']); ?>
+
+                                                                </small>
+
+                                                            </p>
+
+                                                        </div>
+
+                                                        <span class="badge bg-success">Enrolled</span>
+
+                                                    </div>
+
+                                                </div>
+
+                                                
+
+                                                <div class="course-body">
+
+                                                    <p class="text-muted small mb-3">
+
+                                                        <?php echo htmlspecialchars(substr($course['description'] ?? 'No description available', 0, 120)) . '...'; ?>
+
+                                                    </p>
+
+                                                    
+
+                                                    <div class="stats-row">
+
+                                                        <div class="stat-item">
+
+                                                            <div class="stat-number"><?php echo $course['materials_count']; ?></div>
+
+                                                            <div class="stat-label">Materials</div>
+
+                                                        </div>
+
+                                                        <div class="stat-item">
+
+                                                            <div class="stat-number"><?php echo $course['assignments_count']; ?></div>
+
+                                                            <div class="stat-label">Assignments</div>
+
+                                                        </div>
+
+                                                        <div class="stat-item">
+
+                                                            <div class="stat-number"><?php echo $course['quizzes_count']; ?></div>
+
+                                                            <div class="stat-label">Quizzes</div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    
+
+                                                    <div class="d-flex justify-content-between align-items-center mt-3">
+
+                                                        <small class="text-muted">
+
+                                                            <i class="fas fa-calendar me-1"></i>
+
+                                                            Enrolled <?php echo formatDate($course['enrollment_date']); ?>
+
+                                                        </small>
+
+                                                        <a href="course_view.php?id=<?php echo $course['id']; ?>" class="btn btn-primary btn-sm">
+
+                                                            <i class="fas fa-arrow-right me-1"></i>View
+
+                                                        </a>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    <?php endforeach; ?>
+
+                                </div>
+
+                            <?php endif; ?>
+
+                        </div>
+
+
+
+                        <!-- Available Courses Tab -->
+
+                        <div class="tab-pane fade" id="available" role="tabpanel">
+
+                            <?php if (empty($available_courses)): ?>
+
+                                <div class="text-center py-5">
+
+                                    <div class="mb-4">
+
+                                        <i class="fas fa-search text-muted" style="font-size: 4rem; opacity: 0.3;"></i>
+
+                                    </div>
+
+                                    <h5 class="text-muted mb-3">No Available Courses</h5>
+
+                                    <p class="text-muted">All available courses are already enrolled or there are no active courses at the moment.</p>
+
+                                </div>
+
+                            <?php else: ?>
+
+                                <div class="row">
+
+                                    <?php foreach ($available_courses as $index => $course): ?>
+
+                                        <div class="col-lg-6 col-xl-4 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
+
+                                            <div class="course-card">
+
+                                                <div class="course-header">
+
+                                                    <div class="d-flex justify-content-between align-items-start position-relative" style="z-index: 2;">
+
+                                                        <div>
+
+                                                            <h6 class="fw-bold mb-2"><?php echo htmlspecialchars($course['title']); ?></h6>
+
+                                                            <p class="mb-1 opacity-90">
+
+                                                                <small><?php echo htmlspecialchars($course['course_code']); ?></small>
+
+                                                            </p>
+
+                                                            <p class="mb-0 opacity-75">
+
+                                                                <small><i class="fas fa-user me-1"></i>
+
+                                                                <?php echo htmlspecialchars($course['first_name'] . ' ' . $course['last_name']); ?>
+
+                                                                </small>
+
+                                                            </p>
+
+                                                        </div>
+
+                                                        <span class="badge bg-info">Available</span>
+
+                                                    </div>
+
+                                                </div>
+
+                                                
+
+                                                <div class="course-body">
+
+                                                    <p class="text-muted small mb-3">
+
+                                                        <?php echo htmlspecialchars(substr($course['description'] ?? 'No description available', 0, 120)) . '...'; ?>
+
+                                                    </p>
+
+                                                    
+
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                                        <div>
+
+                                                            <small class="text-muted">
+
+                                                                <i class="fas fa-users me-1"></i>
+
+                                                                <?php echo $course['enrolled_count']; ?>/<?php echo $course['max_students']; ?> enrolled
+
+                                                            </small>
+
+                                                        </div>
+
+                                                        <div>
+
+                                                            <small class="text-muted">
+
+                                                                <i class="fas fa-star me-1"></i>
+
+                                                                <?php echo $course['credits']; ?> credits
+
+                                                            </small>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    
+
+                                                    <form method="POST" class="d-inline">
+
+                                                        <input type="hidden" name="action" value="enroll">
+
+                                                        <input type="hidden" name="course_id" value="<?php echo $course['id']; ?>">
+
+                                                        <?php if ($course['enrolled_count'] >= $course['max_students']): ?>
+
+                                                            <button type="button" class="btn btn-secondary w-100" disabled>
+
+                                                                <i class="fas fa-users me-2"></i>Course Full
+
+                                                            </button>
+
+                                                        <?php else: ?>
+
+                                                            <button type="submit" class="btn btn-enroll w-100" 
+
+                                                                    onclick="return confirm('Are you sure you want to enroll in this course?')">
+
+                                                                <i class="fas fa-plus me-2"></i>Enroll Now
+
+                                                            </button>
+
+                                                        <?php endif; ?>
+
+                                                    </form>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    <?php endforeach; ?>
+
+                                </div>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script src="../assets/js/theme.js"></script>
+
+    <script>
+
+        // Initialize AOS
+
+        AOS.init({
+
+            duration: 800,
+
+            once: true,
+
+            offset: 50
+
+        });
+
+
+
+        // Tab switching animation
+
+        document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+
+            tab.addEventListener('shown.bs.tab', function() {
+
+                AOS.refresh();
+
+            });
+
+        });
+
+
+
+        // Course card hover effects
+
+        document.querySelectorAll('.course-card').forEach(card => {
+
+            card.addEventListener('mouseenter', function() {
+
+                this.style.transform = 'translateY(-5px)';
+
+            });
+
+            
+
+            card.addEventListener('mouseleave', function() {
+
+                this.style.transform = 'translateY(0)';
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
+
+
+
+                            <p class="text-muted">Manage your enrolled courses and discover new ones</p>
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button type="button" class="btn btn-outline-primary">
+
+                                <i class="fas fa-filter me-2"></i>Filter
+
+                            </button>
+
+                            <button type="button" class="btn btn-outline-secondary">
+
+                                <i class="fas fa-download me-2"></i>Export
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <?php if (isset($_GET['enrolled'])): ?>
+
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+                    <i class="fas fa-check-circle me-2"></i>
+
+                    Successfully enrolled in the course!
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+                </div>
+
+                <?php endif; ?>
+
+
+
+                <?php if (isset($error_message)): ?>
+
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+                    <i class="fas fa-exclamation-circle me-2"></i>
+
+                    <?php echo $error_message; ?>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+                </div>
+
+                <?php endif; ?>
+
+
+
+                <!-- Course Tabs -->
+
+                <div class="card border-0 shadow-sm" data-aos="fade-up">
+
+                    <div class="card-header bg-transparent border-0 p-0">
+
+                        <ul class="nav nav-tabs" id="courseTab" role="tablist">
+
+                            <li class="nav-item" role="presentation">
+
+                                <button class="nav-link active" id="enrolled-tab" data-bs-toggle="tab" data-bs-target="#enrolled" type="button" role="tab">
+
+                                    <i class="fas fa-graduation-cap me-2"></i>
+
+                                    Enrolled Courses (<?php echo count($enrolled_courses); ?>)
+
+                                </button>
+
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+
+                                <button class="nav-link" id="available-tab" data-bs-toggle="tab" data-bs-target="#available" type="button" role="tab">
+
+                                    <i class="fas fa-plus-circle me-2"></i>
+
+                                    Available Courses (<?php echo count($available_courses); ?>)
+
+                                </button>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    
+
+                    <div class="tab-content" id="courseTabContent">
+
+                        <!-- Enrolled Courses Tab -->
+
+                        <div class="tab-pane fade show active" id="enrolled" role="tabpanel">
+
+                            <?php if (empty($enrolled_courses)): ?>
+
+                                <div class="text-center py-5">
+
+                                    <div class="mb-4">
+
+                                        <i class="fas fa-book text-muted" style="font-size: 4rem; opacity: 0.3;"></i>
+
+                                    </div>
+
+                                    <h5 class="text-muted mb-3">No Courses Enrolled</h5>
+
+                                    <p class="text-muted mb-4">You haven't enrolled in any courses yet. Check out available courses below!</p>
+
+                                    <button class="btn btn-primary" onclick="document.getElementById('available-tab').click();">
+
+                                        <i class="fas fa-search me-2"></i>Browse Available Courses
+
+                                    </button>
+
+                                </div>
+
+                            <?php else: ?>
+
+                                <div class="row">
+
+                                    <?php foreach ($enrolled_courses as $index => $course): ?>
+
+                                        <div class="col-lg-6 col-xl-4 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
+
+                                            <div class="course-card">
+
+                                                <div class="course-header">
+
+                                                    <div class="d-flex justify-content-between align-items-start position-relative" style="z-index: 2;">
+
+                                                        <div>
+
+                                                            <h6 class="fw-bold mb-2"><?php echo htmlspecialchars($course['title']); ?></h6>
+
+                                                            <p class="mb-1 opacity-90">
+
+                                                                <small><?php echo htmlspecialchars($course['course_code']); ?></small>
+
+                                                            </p>
+
+                                                            <p class="mb-0 opacity-75">
+
+                                                                <small><i class="fas fa-user me-1"></i>
+
+                                                                <?php echo htmlspecialchars($course['first_name'] . ' ' . $course['last_name']); ?>
+
+                                                                </small>
+
+                                                            </p>
+
+                                                        </div>
+
+                                                        <span class="badge bg-success">Enrolled</span>
+
+                                                    </div>
+
+                                                </div>
+
+                                                
+
+                                                <div class="course-body">
+
+                                                    <p class="text-muted small mb-3">
+
+                                                        <?php echo htmlspecialchars(substr($course['description'] ?? 'No description available', 0, 120)) . '...'; ?>
+
+                                                    </p>
+
+                                                    
+
+                                                    <div class="stats-row">
+
+                                                        <div class="stat-item">
+
+                                                            <div class="stat-number"><?php echo $course['materials_count']; ?></div>
+
+                                                            <div class="stat-label">Materials</div>
+
+                                                        </div>
+
+                                                        <div class="stat-item">
+
+                                                            <div class="stat-number"><?php echo $course['assignments_count']; ?></div>
+
+                                                            <div class="stat-label">Assignments</div>
+
+                                                        </div>
+
+                                                        <div class="stat-item">
+
+                                                            <div class="stat-number"><?php echo $course['quizzes_count']; ?></div>
+
+                                                            <div class="stat-label">Quizzes</div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    
+
+                                                    <div class="d-flex justify-content-between align-items-center mt-3">
+
+                                                        <small class="text-muted">
+
+                                                            <i class="fas fa-calendar me-1"></i>
+
+                                                            Enrolled <?php echo formatDate($course['enrollment_date']); ?>
+
+                                                        </small>
+
+                                                        <a href="course_view.php?id=<?php echo $course['id']; ?>" class="btn btn-primary btn-sm">
+
+                                                            <i class="fas fa-arrow-right me-1"></i>View
+
+                                                        </a>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    <?php endforeach; ?>
+
+                                </div>
+
+                            <?php endif; ?>
+
+                        </div>
+
+
+
+                        <!-- Available Courses Tab -->
+
+                        <div class="tab-pane fade" id="available" role="tabpanel">
+
+                            <?php if (empty($available_courses)): ?>
+
+                                <div class="text-center py-5">
+
+                                    <div class="mb-4">
+
+                                        <i class="fas fa-search text-muted" style="font-size: 4rem; opacity: 0.3;"></i>
+
+                                    </div>
+
+                                    <h5 class="text-muted mb-3">No Available Courses</h5>
+
+                                    <p class="text-muted">All available courses are already enrolled or there are no active courses at the moment.</p>
+
+                                </div>
+
+                            <?php else: ?>
+
+                                <div class="row">
+
+                                    <?php foreach ($available_courses as $index => $course): ?>
+
+                                        <div class="col-lg-6 col-xl-4 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
+
+                                            <div class="course-card">
+
+                                                <div class="course-header">
+
+                                                    <div class="d-flex justify-content-between align-items-start position-relative" style="z-index: 2;">
+
+                                                        <div>
+
+                                                            <h6 class="fw-bold mb-2"><?php echo htmlspecialchars($course['title']); ?></h6>
+
+                                                            <p class="mb-1 opacity-90">
+
+                                                                <small><?php echo htmlspecialchars($course['course_code']); ?></small>
+
+                                                            </p>
+
+                                                            <p class="mb-0 opacity-75">
+
+                                                                <small><i class="fas fa-user me-1"></i>
+
+                                                                <?php echo htmlspecialchars($course['first_name'] . ' ' . $course['last_name']); ?>
+
+                                                                </small>
+
+                                                            </p>
+
+                                                        </div>
+
+                                                        <span class="badge bg-info">Available</span>
+
+                                                    </div>
+
+                                                </div>
+
+                                                
+
+                                                <div class="course-body">
+
+                                                    <p class="text-muted small mb-3">
+
+                                                        <?php echo htmlspecialchars(substr($course['description'] ?? 'No description available', 0, 120)) . '...'; ?>
+
+                                                    </p>
+
+                                                    
+
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                                        <div>
+
+                                                            <small class="text-muted">
+
+                                                                <i class="fas fa-users me-1"></i>
+
+                                                                <?php echo $course['enrolled_count']; ?>/<?php echo $course['max_students']; ?> enrolled
+
+                                                            </small>
+
+                                                        </div>
+
+                                                        <div>
+
+                                                            <small class="text-muted">
+
+                                                                <i class="fas fa-star me-1"></i>
+
+                                                                <?php echo $course['credits']; ?> credits
+
+                                                            </small>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    
+
+                                                    <form method="POST" class="d-inline">
+
+                                                        <input type="hidden" name="action" value="enroll">
+
+                                                        <input type="hidden" name="course_id" value="<?php echo $course['id']; ?>">
+
+                                                        <?php if ($course['enrolled_count'] >= $course['max_students']): ?>
+
+                                                            <button type="button" class="btn btn-secondary w-100" disabled>
+
+                                                                <i class="fas fa-users me-2"></i>Course Full
+
+                                                            </button>
+
+                                                        <?php else: ?>
+
+                                                            <button type="submit" class="btn btn-enroll w-100" 
+
+                                                                    onclick="return confirm('Are you sure you want to enroll in this course?')">
+
+                                                                <i class="fas fa-plus me-2"></i>Enroll Now
+
+                                                            </button>
+
+                                                        <?php endif; ?>
+
+                                                    </form>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    <?php endforeach; ?>
+
+                                </div>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script src="../assets/js/theme.js"></script>
+
+    <script>
+
+        // Initialize AOS
+
+        AOS.init({
+
+            duration: 800,
+
+            once: true,
+
+            offset: 50
+
+        });
+
+
+
+        // Tab switching animation
+
+        document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+
+            tab.addEventListener('shown.bs.tab', function() {
+
+                AOS.refresh();
+
+            });
+
+        });
+
+
+
+        // Course card hover effects
+
+        document.querySelectorAll('.course-card').forEach(card => {
+
+            card.addEventListener('mouseenter', function() {
+
+                this.style.transform = 'translateY(-5px)';
+
+            });
+
+            
+
+            card.addEventListener('mouseleave', function() {
+
+                this.style.transform = 'translateY(0)';
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
+
+

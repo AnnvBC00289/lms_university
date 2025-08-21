@@ -81,6 +81,7 @@ $average_grade = count($grades) > 0 ? round(array_sum($grades) / count($grades),
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <link href="../assets/css/theme.css" rel="stylesheet">
+    <link href="../assets/css/backgrounds.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -91,9 +92,6 @@ $average_grade = count($grades) > 0 ? round(array_sum($grades) / count($grades),
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-        }
 
         .sidebar {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
@@ -305,7 +303,7 @@ $average_grade = count($grades) > 0 ? round(array_sum($grades) / count($grades),
         }
     </style>
 </head>
-<body>
+<body class="dashboard-page">
     <?php include '../includes/instructor_navbar.php'; ?>
     
     <div class="container-fluid">

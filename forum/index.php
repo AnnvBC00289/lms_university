@@ -67,8 +67,9 @@ if ($selected_course_id) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <link href="../assets/css/theme.css" rel="stylesheet">
+    <link href="../assets/css/backgrounds.css" rel="stylesheet">
 </head>
-<body>
+<body class="forum-page">
     <?php 
     if (hasRole('student')) {
         include '../includes/student_navbar.php';
@@ -87,8 +88,8 @@ if ($selected_course_id) {
             }
             ?>
             
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-4">
                     <h1 class="h2">
                         <i class="fas fa-comments"></i> Course Forum
                     </h1>

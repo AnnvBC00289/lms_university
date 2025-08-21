@@ -35,7 +35,7 @@ if ($_POST) {
     $title = trim($_POST['title']);
     $description = trim($_POST['description']);
     $course_id = (int)$_POST['course_id'];
-    $due_date = $_POST['due_date'];
+    $due_date = date('Y-m-d H:i:s', strtotime($_POST['due_date']));
     $max_points = (float)$_POST['max_points'];
     $instructions = trim($_POST['instructions']);
     $assignment_type = $_POST['assignment_type'];
@@ -55,13 +55,13 @@ if ($_POST) {
         } else {
             $insert_query = "INSERT INTO assignments (title, description, course_id, due_date, max_points, 
                            instructions, assignment_type, allow_late_submission, late_penalty, 
-                           instructor_id, status, created_at) 
-                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', NOW())";
+                           created_by, instructor_id, status, created_at) 
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', NOW())";
             
             $insert_stmt = $db->prepare($insert_query);
             if ($insert_stmt->execute([$title, $description, $course_id, $due_date, $max_points, 
                                      $instructions, $assignment_type, $allow_late_submission, 
-                                     $late_penalty, $_SESSION['user_id']])) {
+                                     $late_penalty, $_SESSION['user_id'], $_SESSION['user_id']])) {
                 $message = "Assignment created successfully!";
                 // Clear form
                 $title = $description = $instructions = '';
@@ -88,6 +88,7 @@ if ($_POST) {
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <link href="../assets/css/theme.css" rel="stylesheet">
+    <link href="../assets/css/backgrounds.css" rel="stylesheet">
     
     <style>
         :root {
@@ -97,9 +98,6 @@ if ($_POST) {
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-        }
 
         .sidebar {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
@@ -235,7 +233,7 @@ if ($_POST) {
         }
     </style>
 </head>
-<body>
+<body class="dashboard-page">
     <?php include '../includes/instructor_navbar.php'; ?>
     
     <div class="container-fluid">
